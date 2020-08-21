@@ -42,6 +42,7 @@ public class AssignmentService implements IAssignmentService {
             RandomStringGenerator tickets = new RandomStringGenerator(23, new SecureRandom(), easy);
             UserRegisterDto loginUser = new UserRegisterDto(assignmentBase.getOwner().getEmail(), tickets.nextString());
             assignmentBase.setOwner(iUserService.createUser(loginUser));
+            iAssignmentRepository.save(assignmentBase);
             User user = new User();
             user.setEmail(loginUser.getEmail());
             user.setEncryptedPassword(loginUser.getPassword());
