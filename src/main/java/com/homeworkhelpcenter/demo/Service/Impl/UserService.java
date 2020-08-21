@@ -47,7 +47,7 @@ public class UserService implements UserDetailsService, IUserService {
 
 
     @Override
-    public User createUserAndLogin(UserRegisterDto userRegisterDto) {
+    public User createUser(UserRegisterDto userRegisterDto) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setEmail(userRegisterDto.getEmail());

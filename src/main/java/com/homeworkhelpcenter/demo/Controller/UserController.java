@@ -46,8 +46,10 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseDto<TokenResponseDto> register(@RequestBody @Validated UserRegisterDto userRegisterDto) throws AuthenticationException, UsernameNotFoundException {
-        User user = iUserService.createUserAndLogin(userRegisterDto);
+        User user = iUserService.createUser(userRegisterDto);
         return login(user);
     }
+
+
 
 }

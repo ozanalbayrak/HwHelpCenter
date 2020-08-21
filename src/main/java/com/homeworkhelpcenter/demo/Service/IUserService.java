@@ -11,5 +11,5 @@ public interface IUserService {
 
     User loadUserByEmail(String email);
 
-    User createUserAndLogin(UserRegisterDto userRegisterDto);
+    User createUser(UserRegisterDto userRegisterDto);
 }

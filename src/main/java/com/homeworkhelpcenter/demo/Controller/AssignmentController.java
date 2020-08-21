@@ -2,6 +2,7 @@ package com.homeworkhelpcenter.demo.Controller;
 
 import com.homeworkhelpcenter.demo.Common.Constant.Url;
 import com.homeworkhelpcenter.demo.Common.Http.ResponseDto;
+import com.homeworkhelpcenter.demo.Dto.TokenResponseDto;
 import com.homeworkhelpcenter.demo.Entity.Assignment.AssignmentBase;
 import com.homeworkhelpcenter.demo.Service.IAssignmentService;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,8 @@ public class AssignmentController {
     private final IAssignmentService iAssignmentService;
 
     @PostMapping(path = "/createAssignment")
-    public ResponseDto<AssignmentBase> create(@RequestBody AssignmentBase assignmentBase) throws Exception {
-        return new ResponseDto<AssignmentBase>(iAssignmentService.create(assignmentBase), HttpStatus.ACCEPTED);
+    public ResponseDto<TokenResponseDto> create(@RequestBody AssignmentBase assignmentBase) throws Exception {
+        return new ResponseDto<TokenResponseDto>(iAssignmentService.create(assignmentBase), HttpStatus.ACCEPTED);
     }
 
     @GetMapping(path = "/getAssignment" + Url.PATH_VARIABLE_ID)
