@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Transactional
@@ -53,6 +54,12 @@ public class AssignmentService implements IAssignmentService {
             iAssignmentRepository.save(assignmentBase);
             return null;
         }
+    }
+
+    @Override
+    public List<AssignmentBase> getAssignmentsOfUser(String email) {
+        User user = iUserService.loadUserByEmail(email);
+        return iAssignmentRepository.findAllByOwner(user);
     }
 
     private String orderIdGenerator()

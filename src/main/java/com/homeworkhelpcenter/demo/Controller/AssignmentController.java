@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(value = Url.CORS, maxAge = 3600)
 @RestController
 @AllArgsConstructor
@@ -27,6 +29,10 @@ public class AssignmentController {
         return null;
     }
 
-
+    @GetMapping(path = "/getAssignments/{email}")
+    public ResponseDto<List<AssignmentBase>> getAssignmentsOfUser(@PathVariable String email)
+    {
+        return new ResponseDto<List<AssignmentBase>>(iAssignmentService.getAssignmentsOfUser(email), HttpStatus.ACCEPTED);
+    }
 
 }
