@@ -2,6 +2,7 @@ package com.homeworkhelpcenter.demo.Dto;
 
 
 import com.homeworkhelpcenter.demo.Entity.Role;
+import com.homeworkhelpcenter.demo.Entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TokenResponseDto {
-    private String email;
+    private User user;
     private String token;
-    Set<Role> roles = new HashSet<>();
 }

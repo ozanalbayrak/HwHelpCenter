@@ -8,11 +8,12 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterDto {
+public class UserLoginDto {
 
     @NonNull
     private String email;
 
+    @NonNull
     private String password;
 
 }

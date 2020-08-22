@@ -3,10 +3,12 @@ package com.homeworkhelpcenter.demo.Controller;
 import com.homeworkhelpcenter.demo.Common.Constant.Url;
 import com.homeworkhelpcenter.demo.Common.Http.ResponseDto;
 import com.homeworkhelpcenter.demo.Dto.TokenResponseDto;
+import com.homeworkhelpcenter.demo.Dto.UserLoginDto;
 import com.homeworkhelpcenter.demo.Dto.UserRegisterDto;
 import com.homeworkhelpcenter.demo.Entity.Role;
 import com.homeworkhelpcenter.demo.Entity.User;
 import com.homeworkhelpcenter.demo.Security.Jwt.JwtTool;
+import com.homeworkhelpcenter.demo.Service.ILoginService;
 import com.homeworkhelpcenter.demo.Service.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,28 +30,21 @@ import java.util.Set;
 public class UserController {
 
     private final IUserService iUserService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTool jwtTokenUtil;
+    private final ILoginService iLoginService;
 
     @PostMapping("/login")
-    public ResponseDto<TokenResponseDto> login(@RequestBody @Validated User user) throws AuthenticationException, UsernameNotFoundException {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-        final User userResp = iUserService.loadUserByEmail(user.getEmail());
-        if (userResp == null) {
-            throw new UsernameNotFoundException("User not found.");
-        }
-        final String token = jwtTokenUtil.generateToken(userResp);
-        Set<Role> roles = userResp.getRoles();
-        TokenResponseDto response =  new TokenResponseDto(userResp.getEmail(), token, roles);
-        return new ResponseDto<TokenResponseDto>(response, HttpStatus.ACCEPTED);
+    public ResponseDto<TokenResponseDto> login(@RequestBody @Validated UserLoginDto user) throws AuthenticationException, UsernameNotFoundException {
+        return new ResponseDto<TokenResponseDto>(iLoginService.login(user), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/register")
-    public ResponseDto<TokenResponseDto> register(@RequestBody @Validated UserRegisterDto userRegisterDto) throws AuthenticationException, UsernameNotFoundException {
+    public ResponseDto<TokenResponseDto> register(@RequestBody @Validated UserRegisterDto userRegisterDto) throws Exception {
         User user = iUserService.createUser(userRegisterDto);
-        return login(user);
+        if (user == null) {
+            throw new Exception("User can not be saved.");
+        }
+        UserLoginDto userLoginDto = new UserLoginDto(userRegisterDto.getEmail(), userRegisterDto.getPassword());
+        return new ResponseDto<TokenResponseDto>(iLoginService.login(userLoginDto), HttpStatus.ACCEPTED);
     }
-
-
 
 }

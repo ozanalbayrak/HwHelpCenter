@@ -1,5 +1,6 @@
 package com.homeworkhelpcenter.demo.Dto;
 
+import com.homeworkhelpcenter.demo.Entity.Assignment.AssignmentBase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,11 +9,12 @@ import lombok.NonNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterDto {
+public class AssignmentCreationAndRegisterRequestDto {
 
     @NonNull
-    private String email;
+    private UserRegisterDto user;
 
-    private String password;
+    @NonNull
+    private AssignmentBase assignment;
 
 }

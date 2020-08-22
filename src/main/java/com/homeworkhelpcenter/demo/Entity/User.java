@@ -24,8 +24,8 @@ public class User extends BaseEntity implements UserDetails {
     @NonNull
     private String encryptedPassword;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    Set<Role> roles = new HashSet<>();
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

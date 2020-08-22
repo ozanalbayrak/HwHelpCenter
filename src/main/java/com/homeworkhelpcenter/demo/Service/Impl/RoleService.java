@@ -4,6 +4,9 @@ import com.homeworkhelpcenter.demo.Entity.Role;
 import com.homeworkhelpcenter.demo.Repo.IRoleRepository;
 import com.homeworkhelpcenter.demo.Service.IRoleService;
 import lombok.AllArgsConstructor;
+import org.hibernate.Criteria;
+import org.hibernate.SharedSessionContract;
+import org.hibernate.engine.spi.SessionDelegatorBaseImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,11 @@ public class RoleService implements  IRoleService {
 
     @Override
     public Role getDefaultRole() {
-        return iRoleRepository.getDefaultRole();
+        Role role = iRoleRepository.findByRoleName("default_role");
+        if (role == null) {
+            role = new Role("default_role");
+            iRoleRepository.save(role);
+        }
+        return role;
     }
 }
