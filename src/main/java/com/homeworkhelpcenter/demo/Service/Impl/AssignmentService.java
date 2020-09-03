@@ -29,7 +29,9 @@ public class AssignmentService implements IAssignmentService {
 
     @Override
     public AssignmentBase createAssignment(AssignmentBase assignment) {
+        User owner = iUserService.loadUserByEmail(assignment.getOwner().getEmail());
         assignment.setOrderId(orderIdGenerator());
+        assignment.setOwner(owner);
         iAssignmentRepository.save(assignment);
         return assignment;
     }

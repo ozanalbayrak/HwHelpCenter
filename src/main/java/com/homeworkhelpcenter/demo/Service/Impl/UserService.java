@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService, IUserService {
         iUserRepository.save(user);
         Role role = iRoleService.getDefaultRole();
         user.getRoles().add(role);
-        role.getUsers().add(user);
+//        role.getUsers().add(user);
         return user;
     }
 

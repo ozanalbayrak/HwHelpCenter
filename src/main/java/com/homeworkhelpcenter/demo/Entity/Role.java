@@ -23,7 +23,7 @@ public class Role extends BaseEntity implements GrantedAuthority {
             name = "user_roles",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
     public Role(String roleName) {
         this.roleName = roleName;
